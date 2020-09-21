@@ -47,7 +47,7 @@ Non Maven-Assembly-Plugin Configuration
 ```
 
 Maven-Assembly-Plugin Configuration
-``
+```
 ...
       <plugin>
         <groupId>io.github.zlika</groupId>
@@ -71,7 +71,7 @@ Maven-Assembly-Plugin Configuration
         </executions>
       </plugin>
 ...
-``
+```
 
 ## Determining Project Dependencies
 ```
@@ -91,7 +91,6 @@ e.g.
 ## Ensuring Tier 3 Dependencies by Enforcing Approved Repositories
 To ensure Tier 3 dependencies, the pom.xml will need to be modified to specify Tier 3 repositories.
 ```
-e.g.
 ...
   <repositories>
     <repository>
@@ -111,7 +110,6 @@ mvn -Drat.ignoreErrors=true help:effective-pom -f pom-repBuildConfig.xml
 ## Ensuring Maven Integrity by Enforcing Approved Plugin Repositories
 To ensure the integrity of Maven plugins, the pom.xml will need to be modified to specify Tier 3 Maven plugin respositories.
 ```
-e.g.
 ...
   <pluginRepositories>
     <pluginRepository>
@@ -133,7 +131,6 @@ mvn net.nicoulaj.maven.plugins:checksum-maven-plugin:1.9:file -Dfile=the-file-to
 
 ### POM Configuration
 ```
-e.g.
 ...
   <plugin>
       <groupId>net.nicoulaj.maven.plugins</groupId>
