@@ -243,6 +243,7 @@ jar.doLast { task ->
 
 ## Maven Challenges
 - Some projects may be using Maven2. Not sure if this can be determined prior to executing the build and make changes for Maven 3. Issues related this thus far requires modifying the POM.
+- A different configuration of the maven reproducible build plugin is required if the maven assembly plugin is used.
 
 ## Gradle Challenges
 - Gradle has various plugin usage syntax (DSL vs Legacy) that affects how the reproducible build configuration can be applied.
