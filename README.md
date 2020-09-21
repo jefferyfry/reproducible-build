@@ -4,6 +4,8 @@ The following includes experimental code for testing reproducible builds with Ma
 # Maven Reproducible Builds
 For reproducible builds maven-jar-plugin, maven-source-plugin and maven-assembly-plugin to version 3.2.0 minimum and [additional pom.xml configuration](https://maven.apache.org/guides/mini/guide-reproducible-builds.html) is required.
 
+**NOTE: This method does not produce a reproducible build with a consistent checksum with the commons-logging project.**
+
 pom.xml
 ```
 <properties>
@@ -15,12 +17,15 @@ Additionally, a [maven reproducible build plugin](http://zlika.github.io/reprodu
 
 ## Example Maven Reproducible Building Using maven-jar-plugin, maven-source-plugin and maven-assembly-plugin 3.2.0+ 
 
+**NOTE: This method does not produce a reproducible build with a consistent checksum with the commons-logging project.**
+
+Uses [pom-repBuildConfig.xml](./test-projects/commons-logging-mvn/pom-repBuildConfig.xml).
 ```
 mvn -Drat.ignoreErrors=true clean package -f pom-repBuildConfig.xml
 ```
 
 ## Example Maven Reproducible Building Using [maven reproducible build plugin](http://zlika.github.io/reproducible-build-maven-plugin/)  
-
+Uses [pom-repBuildPlugin.xml](./test-projects/commons-logging-mvn/pom-repBuildPlugin.xml).
 ```
 mvn -Drat.ignoreErrors=true clean package -f pom-repBuildPlugin.xml
 ```
@@ -174,6 +179,7 @@ tasks.withType<AbstractArchiveTask>().configureEach {
 }
 ```
 ## Example Gradle Reproducible Building
+Uses [settings-repBuild.gradle](./test-projects/logger-interceptor-multi-project-gradle-groovy-kotlin/settings-repBuild.gradle) and [build-repBuild.gradle](./test-projects/logger-interceptor-multi-project-gradle-groovy-kotlin/build-repBuild.gradle).
 ```
 ./gradlew build -c settings-repBuild.gradle
 ```
@@ -231,12 +237,20 @@ jar.doLast { task ->
     ant.checksum file: task.archivePath
 }
 ```
+# Challenges
+- Some projects declare dependencies via environment variables (eg. ANDROID_SDK_ROOT).
+- There may be issues with JDK version. With Gradle, issues exist with JDK14 and reverting to an older version is required.
+
+## Maven Challenges
+- Some projects may be using Maven2. Not sure if this can be determined prior to executing the build and make changes for Maven 3. Issues related this thus far requires modifying the POM.
+
+## Gradle Challenges
+- Gradle has various plugin usage syntax (DSL vs Legacy) that affects how the reproducible build configuration can be applied.
+- Gradle has recently moved to Kotlin syntax and older builds still use Groovy. This affect reproducible build configuration.
 
 # [Test Projects](./test-projects)
 The following is a list of test projects along with an explanation of the reproducible build implementation and any issues encountered.
 - [commons-logging-mvn](./test-projects/commons-logging-mvn) - Original project requires Maven2. Updated pom.xml to include _classifier_ for jars in order to build for Maven3.
-    - command: mvn -Drat.ignoreErrors=true package
 - [logger-interceptor-multi-project-gradle-groovy-kotlin](./test-projects/logger-interceptor-multi-project-gradle-groovy-kotlin) - Android logging library. Multi-project gradle build in Groovy. Kotlin code. Requires ANDROID_SDK_ROOT with API 28,29 or environment variable or by setting the sdk.dir path in your project's local properties.
-    - command ./gradlew clean build
          
 
