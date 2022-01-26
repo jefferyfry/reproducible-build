@@ -1,4 +1,6 @@
 # Reproducible Builds
+
+[![Git](https://app.soluble.cloud/api/v1/public/badges/f6bef147-6ef8-45d5-a54a-23c6bb89c8a7.svg?orgId=604336610407)](https://app.soluble.cloud/repos/details/github.com/jefferyfry/reproducible-build?orgId=604336610407)  
 The following includes experimental code for testing reproducible builds with Maven and Gradle.
 
 # Maven Reproducible Builds
